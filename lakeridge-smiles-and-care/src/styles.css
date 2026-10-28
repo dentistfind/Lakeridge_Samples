@@ -1,0 +1,406 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Lakeridge concept design system.
+ * Base tokens below are the neutral "presenter" theme (comparison and notes pages).
+ * Each concept overrides tokens through [data-concept="a|b|c"].
+ * Approved brand palette: primary pale teal #C4E3E4, secondary teal #6CB9BC,
+ * accent lime green #A6C923, supporting warm brown #805139, neutral white #FFFFFF.
+ */
+
+@theme inline {
+  --font-display: var(--font-display-family);
+  --font-sans: var(--font-body-family);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-urgent: var(--urgent);
+  --color-urgent-foreground: var(--urgent-foreground);
+  --color-note: var(--note);
+  --color-note-foreground: var(--note-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+}
+
+:root {
+  --font-display-family: "Source Serif 4", Georgia, serif;
+  --font-body-family: "Public Sans", system-ui, sans-serif;
+  --radius: 0.5rem;
+  --background: #FFFFFF;
+  --foreground: #1F3839;
+  --card: #FFFFFF;
+  --card-foreground: #1F3839;
+  --popover: #FFFFFF;
+  --popover-foreground: #1F3839;
+  --primary: #C4E3E4;
+  --primary-foreground: #16383A;
+  --secondary: #6CB9BC;
+  --secondary-foreground: #10393B;
+  --muted: #EEF7F7;
+  --muted-foreground: #546B6B;
+  --accent: #A6C923;
+  --accent-foreground: #2E3807;
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --urgent: #805139;
+  --urgent-foreground: #FFFFFF;
+  --note: #EEF7F7;
+  --note-foreground: #3A5453;
+  --border: #DCEAEB;
+  --input: #C3DEDF;
+  --ring: #3F8E92;
+}
+
+/* Concept A: Familiar, Modern Family Care. Warm, soft, rounded. */
+[data-concept="a"] {
+  --font-display-family: "Fraunces", Georgia, serif;
+  --font-body-family: "Nunito Sans", system-ui, sans-serif;
+}
+
+/* Concept B: Clear Pathways, Easy Next Step. Crisp, high clarity, square. */
+[data-concept="b"] {
+  --font-display-family: "Newsreader", Georgia, serif;
+  --font-body-family: "Public Sans", system-ui, sans-serif;
+  --radius: 0.35rem;
+}
+
+/* Concept C: Confidence in Your Next Visit. Editorial, calm, considered. */
+[data-concept="c"] {
+  --font-display-family: "Newsreader", Georgia, serif;
+  --font-body-family: "IBM Plex Sans", system-ui, sans-serif;
+  --radius: 0.2rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body-family);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display-family);
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 72rem;
+    padding-inline: 1.25rem;
+  }
+  .btn {
+    display: inline-flex;
+    min-height: 2.875rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius);
+    padding: 0.625rem 1.25rem;
+    font-weight: 600;
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+    text-align: center;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  .btn-primary:hover {
+    background: color-mix(in oklab, var(--primary) 86%, black);
+  }
+  .btn-outline {
+    border: 1.5px solid var(--secondary);
+    color: color-mix(in oklab, var(--secondary) 60%, black);
+    background: transparent;
+  }
+  .btn-outline:hover {
+    background: var(--secondary);
+    color: var(--secondary-foreground);
+  }
+  .btn-urgent {
+    background: var(--urgent);
+    color: var(--urgent-foreground);
+  }
+  .btn-inactive {
+    border: 1.5px dashed var(--input);
+    color: var(--muted-foreground);
+    background: var(--muted);
+    cursor: not-allowed;
+  }
+  .eyebrow {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+  .card-surface {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .note-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border-radius: 999px;
+    background: var(--note);
+    color: var(--note-foreground);
+    padding: 0.15rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .asset-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px dashed var(--input);
+    background: repeating-linear-gradient(
+      45deg,
+      var(--muted),
+      var(--muted) 10px,
+      color-mix(in oklab, var(--muted) 70%, var(--background)) 10px,
+      color-mix(in oklab, var(--muted) 70%, var(--background)) 20px
+    );
+    color: var(--muted-foreground);
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    padding: 1rem;
+  }
+  .prose-body p + p {
+    margin-top: 0.9rem;
+  }
+}
+
+/* Image-led practice presentation: semantic surface and photo overlay tokens. */
+[data-concept] {
+  --hero-foreground: #FFFFFF;
+  --hero-ink: #1B3B3D;
+  --hero-overlay: linear-gradient(90deg, color-mix(in oklab, var(--hero-ink) 88%, transparent), color-mix(in oklab, var(--hero-ink) 55%, transparent) 43%, color-mix(in oklab, var(--hero-ink) 8%, transparent) 85%);
+  --photo-caption: color-mix(in oklab, var(--hero-ink) 82%, transparent);
+  --contact-background: #27565A;
+  --contact-foreground: #F2FAFA;
+  --logo-surface: #FFFFFF;
+  --background: #FFFFFF;
+  --card: #FFFFFF;
+  --foreground: #1F3839;
+  --muted-foreground: #546B6B;
+  --border: #DCEAEB;
+  --note: #EEF7F7;
+  --note-foreground: #3A5453;
+}
+[data-concept="a"] {
+  --contact-background: #2E5F62;
+  --hero-overlay: linear-gradient(0deg, color-mix(in oklab, var(--hero-ink) 82%, transparent), color-mix(in oklab, var(--hero-ink) 38%, transparent));
+}
+[data-concept="b"] {
+  --font-display-family: "Public Sans", system-ui, sans-serif;
+  --contact-background: #1F4A4D;
+}
+[data-concept="c"] {
+  --contact-background: #6F4B38;
+}
+.contact-strip { background: var(--contact-background); color: var(--contact-foreground); }
+.contact-strip-inner { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-block: 10px; font-size: 12px; }
+.contact-strip-inner > span { display: flex; align-items: center; gap: 7px; }
+.brand-logo { display: block; width: 245px; flex-shrink: 0; background: var(--logo-surface); }
+.brand-logo img { display: block; width: 100%; height: auto; }
+.footer-logo { width: 240px; max-width: 100%; background: var(--logo-surface); padding: 8px; }
+.photo-hero { position: relative; isolation: isolate; min-height: 580px; height: min(680px, 72svh); color: var(--hero-foreground); background: var(--hero-ink); overflow: hidden; }
+.hero-viewport { position: absolute; inset: 0; }
+.hero-track { display: flex; height: 100%; touch-action: pan-y pinch-zoom; }
+.hero-slide { flex: 0 0 100%; min-width: 0; height: 100%; }
+.hero-slide img { width: 100%; height: 100%; object-fit: cover; object-position: center 42%; }
+.hero-shade { position: absolute; inset: 0; pointer-events: none; background: var(--hero-overlay); }
+.hero-content { position: relative; padding-block: 74px 95px; pointer-events: none; }
+.hero-content a { pointer-events: auto; }
+.hero-eyebrow { font-size: 12px; font-weight: 600; text-transform: uppercase; }
+.hero-content h1 { font-size: 76px; font-weight: 500; line-height: 1.02; margin-top: 24px; }
+.hero-period { color: var(--accent); }
+.hero-intro { margin-top: 23px; max-width: 510px; font-size: 17px; line-height: 1.7; }
+.hero-content .btn-primary { background: var(--primary); color: var(--primary-foreground); border-radius: 4px; }
+.hero-secondary { min-height: 46px; background: transparent; color: var(--hero-foreground); border-color: color-mix(in oklab, var(--hero-foreground) 60%, transparent); border-radius: 4px; }
+.hero-secondary:hover { background: var(--primary); color: var(--primary-foreground); }
+.hero-bottom { position: absolute; bottom: 22px; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.hero-image-note { font-size: 11px; background: var(--photo-caption); padding: 5px 9px; }
+.carousel-controls { display: flex; align-items: center; gap: 8px; background: var(--photo-caption); padding: 5px 8px; }
+.carousel-controls button { color: var(--hero-foreground); border: 1px solid color-mix(in oklab, var(--hero-foreground) 30%, transparent); border-radius: 50%; }
+.carousel-controls button:hover { background: var(--primary); }
+.carousel-count { font-size: 14px; padding-inline: 8px; white-space: nowrap; }
+.carousel-count span { opacity: 0.6; }
+.carousel-dots { display: flex; gap: 0; }
+.carousel-controls .carousel-dot { width: 32px; height: 40px; border: 0; background: transparent; border-radius: 0; }
+.carousel-dot span { display: block; width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--hero-foreground); background: transparent; transition: background 150ms, transform 150ms; }
+.carousel-dot[aria-pressed="true"] span { background: var(--hero-foreground); transform: scale(1.3); }
+.pathway-tile { display: flex; flex-direction: column; justify-content: space-between; gap: 14px; min-height: 164px; padding: 18px; border-left: 1px solid var(--border); transition: background 150ms; }
+.pathway-tile:hover { background: var(--secondary); }
+.illustrative-photo { position: relative; overflow: hidden; background: var(--muted); border-radius: var(--radius); }
+.illustrative-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.illustrative-photo figcaption { position: absolute; bottom: 0; left: 0; right: 0; background: var(--photo-caption); color: var(--hero-foreground); padding: 9px 12px; font-size: 11px; }
+[data-concept] .card-surface { border-radius: 6px; }
+[data-concept] .container-page { max-width: 78rem; }
+[data-concept] .eyebrow { color: color-mix(in oklab, var(--secondary) 72%, black); font-size: 11px; }
+[data-concept] [data-section="dentists"] { background: var(--background); }
+[data-concept] [data-section="why"] { background: var(--muted); }
+@media (min-width: 1024px) {
+  [data-concept] .container-page { padding-inline: 44px; }
+}
+@media (max-width: 767px) {
+  .contact-strip-inner { flex-wrap: wrap; justify-content: space-between; gap: 7px 12px; font-size: 11px; }
+  .contact-email { order: 3; flex-basis: 100%; }
+  .brand-logo { width: 210px; }
+  .photo-hero { min-height: 530px; height: auto; }
+  .hero-content { padding-block: 55px 130px; }
+  .hero-content h1 { font-size: 56px; }
+  .hero-intro { max-width: 440px; font-size: 16px; }
+  .hero-bottom { flex-wrap: wrap; bottom: 16px; gap: 12px; }
+  .hero-shade { background: linear-gradient(90deg, color-mix(in oklab, var(--hero-ink) 88%, transparent), color-mix(in oklab, var(--hero-ink) 45%, transparent)); }
+  .pathway-tile { min-height: 155px; border-bottom: 1px solid var(--border); }
+}
+@media (max-width: 480px) {
+  .brand-logo { width: 190px; }
+  .mobile-request { display: none; }
+  .hero-content h1 { font-size: 50px; }
+  .hero-content { padding-top: 45px; }
+  .hero-content .btn { font-size: 13px; padding-inline: 14px; }
+}
+@media (max-height: 650px) and (min-width: 768px) {
+  .photo-hero { min-height: 460px; }
+  .hero-content { padding-block: 40px 80px; }
+  .hero-content h1 { font-size: 60px; margin-top: 14px; }
+}
+
+/* Different compositions, not merely different colour schemes. */
+[data-concept="a"] .hero-content { text-align: center; padding-top: 100px; }
+[data-concept="a"] .hero-content h1 { max-width: 900px; margin-inline: auto; font-size: 80px; }
+[data-concept="a"] .hero-intro { margin-inline: auto; max-width: 580px; }
+[data-concept="a"] .hero-content > div { justify-content: center; }
+[data-concept="a"] .hero-bottom { justify-content: center; }
+[data-concept="a"] .dentists-section { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 28px 48px; align-items: center; }
+[data-concept="a"] .dentist-list { margin-top: 0; }
+[data-concept="a"] .dentists-section > a { grid-column: 1; }
+[data-concept="a"] .dentist-portrait { border-radius: 6px 6px 0 0; }
+[data-concept="a"] .pathways-section li { border: 0; border-top: 2px solid var(--secondary); background: var(--primary); }
+[data-concept="b"] .hero-content h1 { font-size: 66px; font-weight: 600; line-height: 1.08; }
+[data-concept="b"] .hero-pathways { background: var(--primary); color: var(--primary-foreground); }
+[data-concept="b"] .hero-pathways .eyebrow, [data-concept="b"] .pathway-tile .text-muted-foreground, [data-concept="b"] .pathway-tile svg { color: var(--primary-foreground); }
+[data-concept="b"] .pathway-tile { border-color: color-mix(in oklab, var(--primary-foreground) 30%, transparent); }
+[data-concept="b"] .pathway-tile:hover { background: color-mix(in oklab, var(--primary) 85%, var(--primary-foreground)); }
+[data-concept="b"] .dentist-item { display: grid; grid-template-columns: 42% 58%; border-radius: 0; }
+[data-concept="b"] .dentist-info { align-self: center; }
+[data-concept="b"] .dentist-info h3 { font-size: 20px; }
+[data-concept="b"] .first-visit-section { background: var(--background); }
+[data-concept="b"] .first-visit-section li { background: transparent; border: 0; border-top: 1px solid var(--border); padding-left: 0; }
+[data-concept="b"] .first-visit-section li > span { border-radius: 0; }
+[data-concept="b"] .why-section dl { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+[data-concept="b"] .why-section dl > div { border-left: 0; border-top: 3px solid var(--secondary); padding: 20px 0 0; }
+.split-hero { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "copy photo"; height: auto; min-height: 530px; background: var(--secondary); color: var(--foreground); overflow: visible; }
+.split-hero .hero-viewport { position: relative; grid-area: photo; min-height: 100%; overflow: hidden; }
+.split-hero .hero-slide img { object-position: center; }
+.split-hero .hero-shade { display: none; }
+.split-hero .hero-content { grid-area: copy; padding: 64px 44px 84px; align-self: center; max-width: 630px; margin-right: 0; }
+.split-hero .hero-content h1 { font-size: 68px; }
+.split-hero .hero-eyebrow { color: var(--foreground); }
+.split-hero .hero-period { color: var(--foreground); }
+.split-hero .hero-content .btn-primary { background: var(--primary); color: var(--primary-foreground); }
+.split-hero .hero-secondary { color: var(--foreground); border-color: color-mix(in oklab, var(--foreground) 40%, transparent); }
+.split-hero .hero-secondary:hover { background: var(--primary); color: var(--primary-foreground); border-color: transparent; }
+.split-hero .hero-bottom { width: 50%; left: auto; padding-inline: 20px; color: var(--hero-foreground); }
+[data-concept="c"] .dentist-list { display: flex; flex-direction: column; gap: 32px; max-width: 960px; }
+[data-concept="c"] .dentist-item { display: grid; grid-template-columns: 35% 65%; border: 0; background: transparent; border-radius: 0; }
+[data-concept="c"] .dentist-item:nth-child(even) { grid-template-columns: 65% 35%; }
+[data-concept="c"] .dentist-item:nth-child(even) .dentist-portrait { order: 2; }
+[data-concept="c"] .dentist-info { align-self: center; padding: 32px 48px; border-block: 1px solid var(--border); }
+[data-concept="c"] .dentist-info h3 { font-size: 36px; font-weight: 500; }
+[data-concept="c"] .pathways-section ul { display: block; }
+[data-concept="c"] .pathways-section li { display: grid; grid-template-columns: 1fr 1.3fr auto; gap: 24px; align-items: center; border: 0; border-top: 1px solid var(--border); background: transparent; padding: 24px 0; border-radius: 0; }
+[data-concept="c"] .pathways-section li p, [data-concept="c"] .pathways-section li a { margin-top: 0; }
+[data-concept="c"] .why-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+[data-concept="c"] .why-section dl { grid-template-columns: 1fr; margin-top: 0; }
+[data-concept="c"] .why-section dl > div { border-left: 0; border-bottom: 1px solid var(--border); padding: 0 0 20px; }
+[data-concept="c"] .first-visit-section li { background: transparent; border: 0; border-left: 1px solid var(--border); border-radius: 0; }
+[data-concept="c"] .first-visit-section li > span { background: transparent; color: var(--secondary); font-size: 28px; font-family: var(--font-display-family); }
+@media (max-width: 1023px) {
+  [data-concept="a"] .dentists-section { display: block; }
+  [data-concept="a"] .dentist-list { margin-top: 28px; }
+  .split-hero .hero-content { padding: 44px 24px 70px; }
+  .split-hero .hero-content h1 { font-size: 52px; }
+  [data-concept="b"] .why-section dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  [data-concept="a"] .hero-content { padding-top: 60px; }
+  [data-concept="a"] .hero-content h1 { font-size: 56px; max-width: 550px; }
+  [data-concept="b"] .hero-content h1 { font-size: 50px; }
+  .split-hero { grid-template-columns: 1fr; grid-template-areas: "copy" "photo"; min-height: 0; }
+  .split-hero .hero-content { max-width: none; padding: 40px 24px; }
+  .split-hero .hero-content h1 { font-size: 50px; margin-top: 16px; }
+  .split-hero .hero-viewport { height: 240px; min-height: 0; }
+  .split-hero .hero-bottom { width: 100%; bottom: 12px; }
+  [data-concept="c"] .why-section { display: block; }
+  [data-concept="c"] .why-section dl { margin-top: 28px; }
+  [data-concept="c"] .pathways-section li { grid-template-columns: 1fr; gap: 10px; }
+  [data-concept="c"] .dentist-info { padding: 20px; }
+  [data-concept="c"] .dentist-info h3 { font-size: 26px; }
+}
+@media (max-width: 480px) {
+  [data-concept="a"] .hero-content h1 { font-size: 48px; }
+  [data-concept="b"] .dentist-item { grid-template-columns: 40% 60%; }
+  [data-concept="b"] .dentist-info { padding: 16px; }
+  [data-concept="b"] .dentist-info h3 { font-size: 18px; }
+  [data-concept="c"] .dentist-item, [data-concept="c"] .dentist-item:nth-child(even) { grid-template-columns: 45% 55%; }
+  [data-concept="c"] .dentist-item:nth-child(even) .dentist-portrait { order: 0; }
+  [data-concept="c"] .dentist-info { padding: 12px; }
+  [data-concept="c"] .dentist-info h3 { font-size: 22px; }
+}
